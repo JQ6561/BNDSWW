@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>个人设置 - 寻梦直升初二</title>
+		<meta charset='utf-8' />
+		<meta name='viewport' content='width=device-width,initial-scale=1,shrink-to-fit=no' />
+		<link rel='icon' href='/static/favicon.ico' type='image/x-icon' />
+		<link rel='stylesheet' href='/static/font-awesome/css/font-awesome.min.css' />
+		<link rel='stylesheet' href='/static/bootstrap/css/bootstrap.min.css' />
+		<script src='/static/jquery/jquery.min.js'></script>
+		<script src='/static/popper/popper.min.js'></script>
+		<script src='/static/bootstrap/js/bootstrap.min.js'></script>
+	</head>
+	<body>
+		<nav class='navbar navbar-expand-sm navbar-light bg-light'>
+			<a class='navbar-brand' href='#'>
+				<img src='/static/img/logo.png' alt='logo' style='height:40px;' />
+			</a>
+			<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#collapsibleNavbar'>
+				<span class='navbar-toggler-icon'></span>
+			</button>
+			<div class='collapse navbar-collapse justify-content-end' id='collapsibleNavbar'>
+				<ul class='navbar-nav'>
+					<li class='nav-item'>
+						<a class='nav-link' href='{{args["my_url"]}}'>
+							<i class='fa fa-user fa-fw'></i>
+							个人
+						</a>
+					</li>
+					<li class='nav-item'>
+						<a class='nav-link' href='{{args["my_settings_url"]}}'>
+							<i class='fa fa-gear fa-fw'></i>
+							设置
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<br />
+		<div class='container'>
+			{% if args['state']=='action_err' %}
+			<div class='alert alert-danger alert-dismissible fade show'>
+				<button type='button' class='close' data-dismiss='alert'>&times;</button>
+				<strong>错误！</strong>您执行的操作暂不支持。
+			</div>
+			{% endif %}
+			<div class='card'>
+				<div class='card-header'>
+					密码修改
+				</div>
+				<div class='card-body'>
+					<div class='alert alert-info alert-dismissible fade show'>
+						<button type='button' class='close' data-dismiss='alert'>&times;</button>
+						<strong>隐私政策！</strong>我们十分看重学生与老师们的用户信息安全，包括但不限于用户密码、真实姓名等。您的密码将不会以明文的方式存入数据库，这说明即使数据库发生泄漏，别人拿到了密文格式的密码也无法还原出原密码，而且数据库泄漏的可能性微乎其微，请老师和同学们放心填写。
+					</div>
+					{% if args['state']=='change_pass_args_err' %}
+					<div class='alert alert-danger alert-dismissible fade show'>
+						<button type='button' class='close' data-dismiss='alert'>&times;</button>
+						<strong>错误！</strong>您输入的数据不符合要求，请重新输入。
+					</div>
+					{% endif %}
+					{% if args['state']=='change_pass_oldpass_err' %}
+					<div class='alert alert-danger alert-dismissible fade show'>
+						<button type='button' class='close' data-dismiss='alert'>&times;</button>
+						<strong>错误！</strong>您输入的原密码不正确，请重新输入。
+					</div>
+					{% endif %}
+					{% if args['state']=='change_pass_success' %}
+					<div class='alert alert-success alert-dismissible fade show'>
+						<button type='button' class='close' data-dismiss='alert'>&times;</button>
+						<strong>成功！</strong>您的登录密码已修改成功。
+					</div>
+					{% endif %}
+					<form action='{{args["form_url"]}}' method='post'>
+						<input type='hidden' name='action' value='change_pass'>
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-4'>
+									<label for='oldpass' style='position:relative;top:5px;left:0px;'><strong>原密码：</strong></label>
+								</div>
+								<div class='col-8'>
+									<input type='password' placeholder='请输入您原来的密码' class='form-control' id='oldpass' name='oldpass'>
+								</div>
+							</div>
+						</div>
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-4'>
+									<label for='newpass' style='position:relative;top:5px;left:0px;'><strong>新密码：</strong></label>
+								</div>
+								<div class='col-8'>
+									<input type='password' placeholder='请输入您要设定的新密码' class='form-control' id='newpass' name='newpass'>
+								</div>
+							</div>
+						</div>
+						<button type='submit' class='btn btn-primary' style='width:100%;'>提交修改</button>
+					</form>
+				</div>
+			</div>
+			<br />
+			<a href='{{args["return_url"]}}' class='btn btn-primary' role='button' style='width:100%;'>返回首页</a>
+		</div>
+		<hr />
+		<div class='container text-center' style='color:DarkGray;'>
+			<i class='fa fa-copyright'></i>
+			2020 BNDS. All rights reserved.
+		</div>
+	</body>
+</html>
